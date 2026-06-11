@@ -18,7 +18,7 @@ const SUGGESTIONS = [
 
 export const AI = () => {
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: "Hello! I am Apostle AI, your Wikipedia explorer guide. What would you like to learn about today?" }
+    { role: 'assistant', content: "Hello! I am Apostle, your Wikipedia explorer guide. What would you like to learn about today?" }
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -85,7 +85,7 @@ export const AI = () => {
           <ArrowLeft size={20} />
         </button>
         <div>
-          <h1 className="text-2xl font-bold text-indigo-400">Apostle AI</h1>
+          <h1 className="text-2xl font-bold text-indigo-400">Apostle</h1>
           <p className="text-sm text-gray-400">Ask anything about Wikipedia topics</p>
         </div>
       </header>
@@ -103,7 +103,7 @@ export const AI = () => {
                 {m.role === 'user' ? <User size={20} /> : <Bot size={20} className="text-indigo-400" />}
               </div>
               <div className={`p-4 rounded-2xl max-w-[70%] ${m.role === 'user' ? 'bg-indigo-600 text-white' : 'bg-[#111118]'}`}>
-                {m.role === 'assistant' && <div className="text-xs font-bold text-indigo-400 mb-1">Apostle AI</div>}
+                {m.role === 'assistant' && <div className="text-xs font-bold text-indigo-400 mb-1">Apostle</div>}
                 <p className="whitespace-pre-wrap">{m.content}</p>
               </div>
             </motion.div>

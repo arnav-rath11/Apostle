@@ -72,7 +72,7 @@ export const Sidebar = ({ onViewChange, activeView, onOpenAI, isOpen, onClose }:
                className="flex items-center gap-3 text-sm px-4 py-3 rounded-xl text-accent font-bold hover:bg-glass cursor-pointer"
             >
                <Bot size={18} />
-               Apostle AI
+               Apostle
             </button>
             
             <button 

@@ -43,7 +43,7 @@ export const ApostleAIChat = ({ onClose }: ApostleAIChatProps) => {
           messages: [
             {
               role: "system",
-              content: "You are Apostle AI, embedded in a Wikipedia mapping and knowledge explorer app. Help users understand Wikipedia topics, explain complex concepts simply, find connections between ideas, and suggest related topics to explore. End every response with 2-3 related topic suggestions. Be concise, sharp, and curious in tone."
+              content: "You are Apostle, embedded in a Wikipedia mapping and knowledge explorer app. Help users understand Wikipedia topics, explain complex concepts simply, find connections between ideas, and suggest related topics to explore. End every response with 2-3 related topic suggestions. Be concise, sharp, and curious in tone."
             },
             ...updatedMessages
           ],
@@ -52,7 +52,7 @@ export const ApostleAIChat = ({ onClose }: ApostleAIChatProps) => {
 
       const data = await response.json();
       if (!response.ok) {
-        throw new Error(data.error?.message || "Failed to communicate with Apostle AI");
+        throw new Error(data.error?.message || "Failed to communicate with Apostle");
       }
       
       const reply = data.choices?.[0]?.message?.content ?? "No response received.";
@@ -69,7 +69,7 @@ export const ApostleAIChat = ({ onClose }: ApostleAIChatProps) => {
     <div className="fixed inset-y-0 right-0 w-[400px] bg-bg border-l border-border flex flex-col shadow-2xl z-50 animate-in slide-in-from-right">
       <div className="p-4 border-b border-border flex justify-between items-center bg-glass">
         <h2 className="font-bold text-lg flex items-center gap-2 text-accent">
-          <Bot size={20} /> Apostle AI
+          <Bot size={20} /> Apostle
         </h2>
         <button onClick={onClose} className="p-1 hover:bg-glass rounded-full text-text-dim"><X /></button>
       </div>
@@ -85,7 +85,7 @@ export const ApostleAIChat = ({ onClose }: ApostleAIChatProps) => {
             </div>
           </div>
         ))}
-        {loading && <div className="text-sm text-text-dim">Apostle AI is thinking...</div>}
+        {loading && <div className="text-sm text-text-dim">Apostle is thinking...</div>}
       </div>
 
       <div className="p-4 border-t border-border bg-glass">
