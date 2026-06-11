@@ -39,11 +39,11 @@ export const ApostleAIChat = ({ onClose }: ApostleAIChatProps) => {
           "X-Title": "Apostle"
         },
         body: JSON.stringify({
-          model: "qwen/qwen3-coder:free",
+          model: "meta-llama/llama-3.1-8b-instruct",
           messages: [
             {
               role: "system",
-              content: "You are Apostle AI, embedded in a Wikipedia mapping and knowledge explorer app. Help users understand Wikipedia topics, explain complex concepts in simple terms, find surprising connections between ideas, and suggest related topics to explore. End every response with 2-3 'You might also explore:' suggestions. Be concise, sharp, and curious in tone. Never say 'As an AI' — you are Apostle AI."
+              content: "You are Apostle AI, embedded in a Wikipedia mapping and knowledge explorer app. Help users understand Wikipedia topics, explain complex concepts simply, find connections between ideas, and suggest related topics to explore. End every response with 2-3 related topic suggestions. Be concise, sharp, and curious in tone."
             },
             ...updatedMessages
           ],
@@ -51,9 +51,13 @@ export const ApostleAIChat = ({ onClose }: ApostleAIChatProps) => {
       });
 
       const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error?.message || "Failed to communicate with Apostle AI");
+      }
+      
       const reply = data.choices?.[0]?.message?.content ?? "No response received.";
       setMessages([...updatedMessages, { role: 'assistant', content: reply }]);
-
+      
     } catch (error) {
       setMessages(prev => [...prev, { role: 'assistant', content: "Sorry, I'm having trouble connecting right now." }]);
     } finally {

@@ -30,7 +30,7 @@ export const AI = () => {
   }, [messages]);
 
   const handleSend = async (text: string) => {
-    if (!text.trim()) return;
+    if (!text.trim() || loading) return;
 
     const userMessage: Message = { role: 'user', content: text };
     const newMessages = [...messages, userMessage];
@@ -39,15 +39,22 @@ export const AI = () => {
     setLoading(true);
 
     try {
-      const response = await fetch("/api/apostle-ai", {
+      const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
         method: "POST",
         headers: {
+          "Authorization": `Bearer ${import.meta.env.VITE_OPENROUTER_API_KEY}`,
           "Content-Type": "application/json",
+          "HTTP-Referer": "https://apostle.app",
+          "X-Title": "Apostle"
         },
         body: JSON.stringify({
+          model: "meta-llama/llama-3.1-8b-instruct",
           messages: [
-            { role: "user", content: `System: You are Apostle AI, embedded in a Wikipedia mapping app. Help users understand Wikipedia topics, explain complex concepts simply, find connections between ideas, and suggest related topics to explore. End every response with 2-3 related topic suggestions. Be concise, sharp, and curious in tone.\n\n${messages[0].content}` },
-            ...newMessages.slice(1)
+            {
+              role: "system",
+              content: "You are Apostle AI, embedded in a Wikipedia mapping app. Help users understand Wikipedia topics, explain complex concepts simply, find connections between ideas, and suggest related topics. End every response with 2-3 related topic suggestions. Be concise and curious in tone."
+            },
+            ...newMessages
           ]
         }),
       });
